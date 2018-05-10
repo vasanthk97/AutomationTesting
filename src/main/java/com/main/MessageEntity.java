@@ -1,9 +1,9 @@
 package com.hello;
 
-public class Hello {
+public class MessageEntity {
     private String message;
 
-    public Hello(String message){
+    public MessageEntity(String message){
         this.message=message;
     }
 
