@@ -14,4 +14,12 @@ public class HelloController {
         return "Hello World";
     }
 
+    @RequestMapping("/getHello/")
+    public @ResponseBody
+    Hello getObject() {
+        return new Hello("hello world");
+    }
+
+
+
 }
