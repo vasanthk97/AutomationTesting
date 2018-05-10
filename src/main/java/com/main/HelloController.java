@@ -1,4 +1,4 @@
-package com.hello;
+package com.main;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +16,7 @@ public class HelloController {
     @RequestMapping(value = "/getHello/")
     @ResponseBody
     public MessageEntity getObject() {
-        return new MessageEntity("hello world");
+        return new MessageEntity("main world");
     }
 
 

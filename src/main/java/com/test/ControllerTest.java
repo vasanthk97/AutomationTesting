@@ -1,7 +1,7 @@
 package com.test;
 
 
-import com.hello.HelloController;
+import com.main.HelloController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

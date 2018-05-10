@@ -1,4 +1,4 @@
-package com.hello;
+package com.main;
 
 public class MessageEntity {
     private String message;
