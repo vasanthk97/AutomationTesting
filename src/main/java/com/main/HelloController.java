@@ -1,10 +1,9 @@
 package com.main;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 public class HelloController {
 
     @RequestMapping("/")
@@ -19,6 +18,11 @@ public class HelloController {
         return new MessageEntity("main world");
     }
 
+    @RequestMapping(value = "/sayHello", method = RequestMethod.POST, consumes = {"application/json"})
+    public String postObject(@RequestBody JsonNode inputJson) {
+
+        return inputJson.get("message").toString();
+    }
 
 
 }

@@ -13,9 +13,20 @@ public class StudentEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    private String gender;
 
-    public StudentEntity(String name) {
+    public StudentEntity(String name, String gender) {
+
         this.name = name;
+        this.gender = gender;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public StudentEntity() {
