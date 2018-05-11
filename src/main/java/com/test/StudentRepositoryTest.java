@@ -14,6 +14,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,7 +33,7 @@ public class StudentRepositoryTest {
 
     @Test
     public void whenNameIsValid() {
-        StudentEntity someStudent= new StudentEntity("student A");
+        StudentEntity someStudent= new StudentEntity("student A","male");
 
         StudentEntity requiredStudent = studentRepository.findByName(someStudent.getName());
 
@@ -41,11 +43,18 @@ public class StudentRepositoryTest {
 
     @Test
     public void whenNameIsInvalid() {
-        StudentEntity someStudent= new StudentEntity("foo");
+        StudentEntity someStudent= new StudentEntity("foo","bar");
 
         StudentEntity requiredStudent = studentRepository.findByName(someStudent.getName());
 
-        assertThat(requiredStudent.getName())
-                .isEqualTo(someStudent.getName());
+        assertThat(requiredStudent)
+                .isNull();
+    }
+
+    @Test
+    public void getMaleTest(){
+        List<StudentEntity> students=studentRepository.findMale();
+        for(StudentEntity student:students)
+            assertThat(student.getGender()).isEqualTo("male");
     }
 }

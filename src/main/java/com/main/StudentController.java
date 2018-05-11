@@ -29,6 +29,16 @@ public class StudentController {
         return studentList;
 }
 
+    @RequestMapping("/getMale")
+    public Collection<StudentEntity> getAllMales() {
+
+        List<StudentEntity> studentList = new ArrayList<StudentEntity>();
+        for (StudentEntity student : studentRepository.findMale()) {
+            studentList.add(student);
+        }
+
+        return studentList;
+    }
 
 
 }

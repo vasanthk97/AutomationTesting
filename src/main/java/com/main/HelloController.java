@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -21,11 +22,15 @@ public class HelloController {
         return new MessageEntity("main world");
     }
 
-    @RequestMapping(value = "/sendMessage/")
+    @RequestMapping(value = "/sendMessage/",method = RequestMethod.POST)
     @ResponseBody
-    public String getObject(@RequestBody JsonNode json) {
+    public String sendObject(@RequestBody JsonNode json) {
         return json.get("message").toString();
     }
 
-
+    @RequestMapping(value = "/editMessage/",method = RequestMethod.PUT)
+    @ResponseBody
+    public String editObject(@RequestBody JsonNode json) {
+        return json.get("message").toString();
+    }
 }

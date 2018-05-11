@@ -22,7 +22,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.http.RequestEntity.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -72,6 +72,22 @@ public class WebMVCTest {
                 .perform(post("/sendMessage/")
                 .content(byteJson)
                 .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("hello")));
+
+    }
+
+    @Test
+    public void shouldPut() throws Exception{
+
+        MessageEntity messageEntity= new MessageEntity("hello");
+        ObjectMapper map = new ObjectMapper();
+        byte[] byteJson = map.writeValueAsString(messageEntity).getBytes();
+
+        this.mockMvc
+                .perform(put("/editMessage/")
+                        .content(byteJson)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("hello")));
 
