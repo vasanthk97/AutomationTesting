@@ -1,19 +1,28 @@
 package com.test;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.HelloController;
+import com.main.MessageEntity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.net.URI;
+
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.http.RequestEntity.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -49,6 +58,22 @@ public class WebMVCTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message")
                 .value("main world"));
+
+    }
+
+    @Test
+    public void shouldPost() throws Exception{
+
+        MessageEntity messageEntity= new MessageEntity("hello");
+        ObjectMapper map = new ObjectMapper();
+        byte[] byteJson = map.writeValueAsString(messageEntity).getBytes();
+
+                this.mockMvc
+                .perform(post("/sendMessage/")
+                .content(byteJson)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("hello")));
 
     }
 }
