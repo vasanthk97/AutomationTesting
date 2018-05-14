@@ -7,26 +7,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.net.URI;
-
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.springframework.http.RequestEntity.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -36,12 +27,12 @@ public class WebMVCTest {
     private WebApplicationContext context;
 
     private MockMvc mockMvc;
+
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(new HelloController()).build();
 
     }
-
 
 
     @Test
@@ -57,30 +48,30 @@ public class WebMVCTest {
                 .perform(get("/getHello/"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message")
-                .value("main world"));
+                        .value("Hello world"));
 
     }
 
     @Test
-    public void shouldPost() throws Exception{
+    public void shouldPost() throws Exception {
 
-        MessageEntity messageEntity= new MessageEntity("hello");
+        MessageEntity messageEntity = new MessageEntity("hello world");
         ObjectMapper map = new ObjectMapper();
         byte[] byteJson = map.writeValueAsString(messageEntity).getBytes();
 
-                this.mockMvc
+        this.mockMvc
                 .perform(post("/sendMessage/")
-                .content(byteJson)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(byteJson)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("hello")));
+                .andExpect(content().string(containsString("hello world")));
 
     }
 
     @Test
-    public void shouldPut() throws Exception{
+    public void shouldPut() throws Exception {
 
-        MessageEntity messageEntity= new MessageEntity("hello");
+        MessageEntity messageEntity = new MessageEntity("hello world");
         ObjectMapper map = new ObjectMapper();
         byte[] byteJson = map.writeValueAsString(messageEntity).getBytes();
 
@@ -89,7 +80,7 @@ public class WebMVCTest {
                         .content(byteJson)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("hello")));
+                .andExpect(content().string(containsString("hello world")));
 
     }
 }

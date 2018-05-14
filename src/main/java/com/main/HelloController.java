@@ -19,7 +19,7 @@ public class HelloController {
     @RequestMapping(value = "/getHello/")
     @ResponseBody
     public MessageEntity getObject() {
-        return new MessageEntity("main world");
+        return new MessageEntity("Hello world");
     }
 
     @RequestMapping(value = "/sendMessage/",method = RequestMethod.POST)
