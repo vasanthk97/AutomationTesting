@@ -1,7 +1,7 @@
 package com.zemoso.automation.repositories;
 
 import com.zemoso.automation.models.Student;
-import com.zemoso.automation.repositories.StudentRepository;
+import com.zemoso.automation.services.StudentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,8 @@ public class InMemoryDbTest {
     @Autowired
     private StudentRepository studentRepository;
 
-
+    @Autowired
+    private StudentService service;
 
     @Test
     public void whenNameIsValid() {
@@ -80,6 +81,41 @@ public class InMemoryDbTest {
             fail("test failed, wrong data retrieved");
         }
     }
+
+    @Test
+    public void getFemales() throws Exception{
+        Boolean flagMale=false;
+        Student someStudent1= new Student("student A","male");
+        studentRepository.save(someStudent1);
+        Student someStudent2= new Student("student B","male");
+        studentRepository.save(someStudent2);
+        Student someStudent3= new Student("student C","female");
+        studentRepository.save(someStudent3);
+        List<Student> students=null;
+        try {
+            students=service.findFemale();
+
+        }
+        catch (Exception ex){
+            fail(ex.getMessage());
+        }
+        for (Student student : students)
+        {
+            if(student.getGender().equals("male")){
+                continue;
+            }
+            else {
+                flagMale=true;
+            }
+        }
+        if (flagMale==true)
+        {
+            fail("test failed, wrong data retrieved");
+        }
+
+
+    }
+
 
 
 

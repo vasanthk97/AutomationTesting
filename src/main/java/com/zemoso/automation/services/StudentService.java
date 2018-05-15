@@ -1,5 +1,6 @@
 package com.zemoso.automation.services;
 
+import com.zemoso.automation.repositories.StudentDAO;
 import com.zemoso.automation.models.Student;
 import com.zemoso.automation.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,8 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-
+    @Autowired
+    StudentDAO dao;
     public List<Student> getAllStudents()
     {
         List<Student> studentList = new ArrayList<Student>();
@@ -53,6 +55,15 @@ public class StudentService {
 
 
     }
+
+    public List<Student> findAll(){
+        return dao.findAll();
+    }
+
+    public List<Student> findFemale(){
+        return dao.findFemale();
+    }
+
 
 
 }

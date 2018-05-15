@@ -46,6 +46,13 @@ public class StudentController {
     public ResponseEntity<?> get500() {
         return new ResponseEntity<Error>(HttpStatus.INTERNAL_SERVER_ERROR); //appropriate error code
     }
-
+    @GetMapping("/getAllStudents2")
+    public List<Student> findAll(){
+        return studentService.findAll();
+    }
+    @GetMapping("/getFemales")
+    public List<Student> findFemale(){
+        return studentService.findFemale();
+    }
 
 }
