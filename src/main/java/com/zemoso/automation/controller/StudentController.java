@@ -4,12 +4,11 @@ import com.zemoso.automation.repositories.StudentRepository;
 import com.zemoso.automation.models.Student;
 import com.zemoso.automation.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @RestController
@@ -23,7 +22,7 @@ public class StudentController {
     StudentService studentService;
 
     @GetMapping("/getAllStudents")
-    public Collection<Student> getAllStudents() {
+    public List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }
 
@@ -33,8 +32,19 @@ public class StudentController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    public Optional<Student> findById(@PathVariable Long id) {
+    public Optional<Student> findById(@PathVariable long id) {
         return studentService.findById(id);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/addStudent")
+    public void addStudent(@RequestBody  Student student) {
+        studentService.addStudent(student);
+        return;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/get500")
+    public ResponseEntity<?> get500() {
+        return new ResponseEntity<Error>(HttpStatus.INTERNAL_SERVER_ERROR); //appropriate error code
     }
 
 

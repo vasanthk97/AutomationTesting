@@ -1,4 +1,4 @@
-package com.zemoso.automation;
+package com.zemoso.automation.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zemoso.automation.controller.HelloController;
@@ -30,10 +30,9 @@ public class WebMVCTest {
 
     private MockMvc helloMockMvc;
 
-    @Autowired
-    StudentRepository studentRepository;
 
-    @Before public void setup() {
+    @Before
+    public void setup() {
         this.helloMockMvc = MockMvcBuilders.standaloneSetup(new HelloController()).build();
 
     }
@@ -57,7 +56,6 @@ public class WebMVCTest {
     }
 
 
-
     @Test
     public void shouldPost() throws Exception {
 
@@ -74,10 +72,11 @@ public class WebMVCTest {
                 .andExpect(content().string(containsString("hello world")));
 
     }
+
     @Test
     public void postInvalidObject() throws Exception {
 
-        Dummy dummy= new Dummy(3);
+        Dummy dummy = new Dummy(3);
 
         ObjectMapper map = new ObjectMapper();
         byte[] byteJson = map.writeValueAsString(dummy).getBytes();
@@ -89,6 +88,7 @@ public class WebMVCTest {
                 .andExpect(status().isOk());
 
     }
+
     @Test
     public void shouldPut() throws Exception {
 
@@ -105,6 +105,17 @@ public class WebMVCTest {
 
     }
 
+    @Test
+    public void shouldGive400() throws Exception {
+
+
+
+        this.helloMockMvc
+                .perform(get("/someRandomURL/"))
+                .andExpect(status().is4xxClientError());
+
+
+    }
 
 
 }

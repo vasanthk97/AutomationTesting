@@ -34,4 +34,8 @@ public class HelloController {
     public String editObject(@RequestBody JsonNode json) {
         return json.get("message").toString();
     }
+    @RequestMapping(method = RequestMethod.GET, path = "/get500")
+    public void get500() {
+        throw new NullPointerException();
+    }
 }

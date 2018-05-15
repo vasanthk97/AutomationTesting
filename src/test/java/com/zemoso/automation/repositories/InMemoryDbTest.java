@@ -1,4 +1,4 @@
-package com.zemoso.automation;
+package com.zemoso.automation.repositories;
 
 import com.zemoso.automation.models.Student;
 import com.zemoso.automation.repositories.StudentRepository;
@@ -29,8 +29,7 @@ public class InMemoryDbTest {
 
     @Test
     public void whenNameIsValid() {
-        Student someStudent= new Student("testStudent","male");
-//        studentRepository.save(someStudent);
+        Student someStudent= new Student("testStudent1","male");
         entityManager.persist(someStudent);
         entityManager.flush();
         Student requiredStudent = studentRepository.findByName(someStudent.getName());

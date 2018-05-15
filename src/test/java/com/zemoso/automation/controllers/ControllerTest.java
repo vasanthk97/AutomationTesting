@@ -1,4 +1,4 @@
-package com.zemoso.automation;
+package com.zemoso.automation.controllers;
 
 
 import com.zemoso.automation.controller.HelloController;
