@@ -1,4 +1,4 @@
-package com.zemoso.automation.repositories;
+package com.zemoso.automation.DAOs;
 
 import com.zemoso.automation.models.Student;
 import com.zemoso.automation.utils.StudentRowMapper;

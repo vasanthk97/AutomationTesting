@@ -1,12 +1,10 @@
 package com.zemoso.automation.repositories;
 
 import com.zemoso.automation.models.Student;
-import com.zemoso.automation.services.StudentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -19,20 +17,14 @@ import static org.assertj.core.api.Assertions.fail;
 @DataJpaTest
 public class InMemoryDbTest {
 
-    @Autowired
-    private TestEntityManager entityManager;
 
     @Autowired
-    private StudentRepository studentRepository;
-
-    @Autowired
-    private StudentService service;
+    StudentRepository studentRepository;
 
     @Test
     public void whenNameIsValid() {
         Student someStudent= new Student("testStudent1","male");
-        entityManager.persist(someStudent);
-        entityManager.flush();
+        studentRepository.save(someStudent);
         Student requiredStudent = studentRepository.findByName(someStudent.getName());
 
         assertThat(requiredStudent.getName())
@@ -82,39 +74,7 @@ public class InMemoryDbTest {
         }
     }
 
-    @Test
-    public void getFemales() throws Exception{
-        Boolean flagMale=false;
-        Student someStudent1= new Student("student A","male");
-        studentRepository.save(someStudent1);
-        Student someStudent2= new Student("student B","male");
-        studentRepository.save(someStudent2);
-        Student someStudent3= new Student("student C","female");
-        studentRepository.save(someStudent3);
-        List<Student> students=null;
-        try {
-            students=service.findFemale();
 
-        }
-        catch (Exception ex){
-            fail(ex.getMessage());
-        }
-        for (Student student : students)
-        {
-            if(student.getGender().equals("male")){
-                continue;
-            }
-            else {
-                flagMale=true;
-            }
-        }
-        if (flagMale==true)
-        {
-            fail("test failed, wrong data retrieved");
-        }
-
-
-    }
 
 
 

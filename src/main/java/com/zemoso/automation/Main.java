@@ -10,10 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.Arrays;
 
 @SpringBootApplication
-public class Main implements CommandLineRunner{
+public class Main implements CommandLineRunner {
 
     @Autowired
     StudentRepository repository;
+
     public static void main(String[] args) {
 
 
@@ -23,15 +24,11 @@ public class Main implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-//        logger.info("Student id 10001 -> {}", repository.findById(10001L));
-            repository.deleteAll();
-           repository.save(new Student("John", "female"));
-            repository.save(new Student("John", "female"));
+        repository.deleteAll();
+        repository.save(new Student("John", "female"));
+        repository.save(new Student("John", "female"));
         repository.save(new Student("John", "male"));
 
-//        logger.info("Update 10003 -> {}", repository.update(new Student(10001L, "Name-Updated", "New-Passport")));
-
-//        repository.deleteById(10002L);
 
     }
 

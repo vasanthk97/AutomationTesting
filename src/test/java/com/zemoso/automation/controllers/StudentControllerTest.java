@@ -60,6 +60,7 @@ public class StudentControllerTest {
     }
 
     @Test
+
     public void addStudentClientError() throws Exception {
 
         RequestBuilder request = MockMvcRequestBuilders

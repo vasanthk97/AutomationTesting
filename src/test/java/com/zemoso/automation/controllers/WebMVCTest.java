@@ -2,17 +2,12 @@ package com.zemoso.automation.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zemoso.automation.controller.HelloController;
-import com.zemoso.automation.controller.StudentController;
 import com.zemoso.automation.models.Dummy;
 import com.zemoso.automation.models.MessageEntity;
-import com.zemoso.automation.repositories.StudentRepository;
-import com.zemoso.automation.services.StudentService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -43,6 +38,7 @@ public class WebMVCTest {
         this.helloMockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Hello World")));
     }
+
 
     @Test
     public void shouldReturnAppropriateObject() throws Exception {
@@ -89,6 +85,7 @@ public class WebMVCTest {
 
     }
 
+
     @Test
     public void shouldPut() throws Exception {
 
@@ -104,6 +101,7 @@ public class WebMVCTest {
                 .andExpect(content().string(containsString("hello world")));
 
     }
+
 
     @Test
     public void shouldGive400() throws Exception {

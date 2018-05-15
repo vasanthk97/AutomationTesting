@@ -1,6 +1,6 @@
 package com.zemoso.automation.services;
 
-import com.zemoso.automation.repositories.StudentDAO;
+import com.zemoso.automation.DAOs.StudentDAO;
 import com.zemoso.automation.models.Student;
 import com.zemoso.automation.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
